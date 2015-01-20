@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <h:outputStylesheet library="css" name="listDVD.css" target="head"/>
+        <title>Список DVD</title>
+        
+    </h:head>
+    <h:body>
+        <h:messages style="color:red"/>
+        <div>
+            <fieldset class="dvd_admin_fieldset">
+                <legend>Администрирование</legend>
+                <ul>
+                    <li>
+                        <h:link value="Управление справочниками" outcome="admin/vocabulary" rendered="#{DVDController.getIsPrincipalInRole('ADMIN')}"></h:link></li>
+                    <li>
+                        <h:link value="Управление книгами" outcome="admin/addDVD"></h:link>
+                    </li>
+                </ul>   
+            </fieldset>    
+         </div>
+        <h:form>
+            <fieldset>
+                <legend>Пользователь</legend>
+                <h:outputLabel value="#{DVDController.principalName}"></h:outputLabel>
+                <!--
+                <c:forEach var="parameter" items="#{facesContext}">
+                    <h:outputText value="#{parameter.key}"/> =
+                    <c:forEach var="value" items="#{parameter.value}">
+                        <h:outputText value="#{value}" escape="false"/><br/>
+                    </c:forEach>
+                </c:forEach>
+                -->
+                <h:commandButton value="Выход" action="#{DVDController.logout()}"></h:commandButton>
+                
+            </fieldset>
+            <fieldset class="dvd_table_fieldset">
+                <legend>Список DVD дисков</legend>
+                <h:dataTable value="#{DVDController.allDVD}" var="dvd">
+                    <f:facet name="header">
+                        <h:outputLabel value=""></h:outputLabel>
+                        <h:outputLabel value="Наименование"></h:outputLabel>
+                        <h:outputLabel value="Стиль"></h:outputLabel>
+                        <h:outputLabel value="Страна"></h:outputLabel>
+                        <h:outputLabel value="Читатель"></h:outputLabel>
+                    </f:facet>
+                    <h:column>
+                        <h:selectBooleanCheckbox id="cb" value="#{DVDController.selectedDVDs[dvd.id]}" rendered="#{dvd.username == null}">
+                        </h:selectBooleanCheckbox>
+                        
+                    </h:column>
+                    <h:column>
+                        <h:outputLabel value="#{dvd.title}"></h:outputLabel>
+                    </h:column>
+                    <h:column>
+                        <h:outputLabel value="#{dvd.styleName}"></h:outputLabel>
+                    </h:column>
+                    <h:column>
+                        <h:outputLabel value="#{dvd.countryName}"></h:outputLabel>
+                    </h:column>
+                    <h:column>
+                        <h:outputLabel value="#{dvd.username}"></h:outputLabel>
+                    </h:column>
+                </h:dataTable>
+
+                <h:commandButton value="Взять" action="#{DVDController.takeSelDVDs()}"></h:commandButton>
+            </fieldset>
+            
+            <fieldset class="dvd_table_fieldset">
+                <legend>Список взятых DVD</legend>
+                <h:outputLabel value="Список взятых DVD"></h:outputLabel>
+                <h:dataTable value="#{DVDController.userDVD}" var="dvd">
+                    <f:facet name="header">
+                        <h:outputLabel value=""></h:outputLabel>
+                        <h:outputLabel value="Наименование"></h:outputLabel>
+                        <h:outputLabel value="Стиль"></h:outputLabel>
+                        <h:outputLabel value="Страна"></h:outputLabel>
+                        <h:outputLabel value="Пользователь"></h:outputLabel>
+                    </f:facet>
+                    <h:column>
+                        <h:selectBooleanCheckbox value="#{DVDController.selectedDVDsReturn[dvd.id]}"></h:selectBooleanCheckbox>
+                    </h:column>
+                    <h:column>
+                        <h:outputLabel value="#{dvd.title}"></h:outputLabel>
+                    </h:column>
+                    <h:column>
+                        <h:outputLabel value="#{dvd.styleName}"></h:outputLabel>
+                    </h:column>
+                    <h:column>
+                        <h:outputLabel value="#{dvd.countryName}"></h:outputLabel>
+                    </h:column>
+                    <h:column>
+                        <h:outputLabel value="#{dvd.username}"></h:outputLabel>
+                    </h:column>
+
+                </h:dataTable>
+                <h:commandButton value="Вернуть" action="#{DVDController.returnSelDVDs()}"></h:commandButton>
+            </fieldset>    
+        </h:form>
+        
+    </h:body>
+</html>
+

@@ -1,0 +1,30 @@
+/* 
+    Document   : listDVD
+    Created on : 08.06.2012, 10:15:44
+    Author     : Игорь
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+.dvd_admin_fieldset {
+    background-color: #F2E289;
+        
+}
+
+.dvd_admin_fieldset legend {
+    color: #3C932F;
+    background-color: #F2E289;
+    border: #3C932F;
+}
+
+.dvd_table_fieldset {
+    background-color: #D5F4F6;
+}
+
+.dvd_table_fieldset legend {
+    color: #3C932F;
+}

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:messages style="color:red"/>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Наименование"></h:outputLabel> 
+                <h:inputText value="#{DVDController.title}"></h:inputText>
+                <h:outputLabel value="Жанр"></h:outputLabel> 
+                <h:selectOneMenu value="#{DVDController.style}">
+                    <c:forEach items="#{DVDController.styles}" var="item">
+                        <f:selectItem itemLabel="#{item.name}" itemValue="#{item.id}"></f:selectItem>
+                    </c:forEach>
+                </h:selectOneMenu>
+                <h:outputLabel value="Страна"></h:outputLabel>
+                <h:selectOneMenu value="#{DVDController.country}">
+                    <c:forEach items="#{DVDController.countries}" var="item">
+                        <f:selectItem itemLabel="#{item.name}" itemValue="#{item.id}"></f:selectItem>
+                    </c:forEach>
+                </h:selectOneMenu>
+                <h:outputLabel></h:outputLabel>
+                <h:commandButton value="Добавить" action="#{DVDController.addDVD()}"></h:commandButton>    
+                
+                
+            </h:panelGrid>    
+            
+            
+            <h:outputLabel value="Список DVD дисков"></h:outputLabel>
+            <h:dataTable value="#{DVDController.allDVD}" var="dvd">
+                <h:column>
+                    <h:selectBooleanCheckbox id="cb" value="#{DVDController.selectedDVDs[dvd.id]}"></h:selectBooleanCheckbox>
+                    
+                </h:column>
+                <h:column>
+                    <h:outputLabel value="#{dvd.title}"></h:outputLabel>
+                </h:column>
+                <h:column>
+                    <h:outputLabel value="#{dvd.styleName}"></h:outputLabel>
+                </h:column>
+                <h:column>
+                    <h:outputLabel value="#{dvd.countryName}"></h:outputLabel>
+                </h:column>
+            </h:dataTable>
+            
+            <h:commandButton value="Удалить" action="#{DVDController.delSelDVDs()}"></h:commandButton>
+                
+        </h:form>
+        
+    </h:body>
+</html>
+
